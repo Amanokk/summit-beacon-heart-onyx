@@ -1,0 +1,35 @@
+import{D as e,F as t,M as n,N as r,O as i,R as a,T as o,a as s,k as c,w as l}from"./use-snapshot-08bdij27.js";import{M as u,T as d,j as f,n as p,y as m}from"./index-CFsgeKcW.js";var h=m(`copy`,[[`rect`,{width:`14`,height:`14`,x:`8`,y:`8`,rx:`2`,ry:`2`,key:`17jyea`}],[`path`,{d:`M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2`,key:`zix9uf`}]]),g=m(`download`,[[`path`,{d:`M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4`,key:`ih7n3h`}],[`polyline`,{points:`7 10 12 15 17 10`,key:`2ggqvy`}],[`line`,{x1:`12`,x2:`12`,y1:`15`,y2:`3`,key:`1vk2je`}]]),_=m(`printer`,[[`path`,{d:`M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2`,key:`143wyd`}],[`path`,{d:`M6 9V3a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v6`,key:`1itne7`}],[`rect`,{x:`6`,y:`14`,width:`12`,height:`8`,rx:`1`,key:`1ue0tg`}]]),v=m(`share-2`,[[`circle`,{cx:`18`,cy:`5`,r:`3`,key:`gq8acd`}],[`circle`,{cx:`6`,cy:`12`,r:`3`,key:`w7nqdw`}],[`circle`,{cx:`18`,cy:`19`,r:`3`,key:`1xt0gg`}],[`line`,{x1:`8.59`,x2:`15.42`,y1:`13.51`,y2:`17.49`,key:`47mynk`}],[`line`,{x1:`15.41`,x2:`8.59`,y1:`6.51`,y2:`10.49`,key:`1n3mei`}]]),y=u(f());function b(e){let t=e==null?``:String(e);return/[;"\n]/.test(t)?`"${t.replace(/"/g,`""`)}"`:t}function x(e){return`\uFEFF${[[`Data`,`Início`,`Término`,`Duração`,`Obra`,`Rua`,`Máquina`,`Atividade`,`Estaca`,`PV`,`Qtd`,`Observações`,`Descrição`,`Latitude`,`Longitude`,`Local GPS`],...e.map(e=>{let i=e.end?r(t(e.start,e.end)):`em andamento`;return[n(e.date),e.start,e.end??``,i,e.workName,e.streetName,e.equipmentName,e.activityName,e.estaca,e.pv,e.quantity??``,e.notes,e.description,e.lat??``,e.lng??``,e.locationLabel].map(b)})].map(e=>e.join(`;`)).join(`
+`)}`}function S(e,t,n){let r=new Blob([t],{type:n}),i=URL.createObjectURL(r),a=document.createElement(`a`);a.href=i,a.download=e,a.click(),URL.revokeObjectURL(i)}function C(e,t){let r=[...t].sort((e,t)=>e.start.localeCompare(t.start)),i=`${n(e)}`,a=r[0]?.workName??``,o=[`${i}${a?` — ${a}`:``}`,``];if(r.length===0)return o.push(`Nenhum apontamento neste dia.`),o.join(`
+`);for(let e of r){let t=e.end?`${e.start}–${e.end}`:`${e.start}–…`;o.push(`${t}  ${e.equipmentName}`);let n=[e.activityName,e.streetName,e.estaca&&`Estaca ${e.estaca}`,e.pv].filter(Boolean);o.push(n.join(` — `)),e.locationLabel&&o.push(`GPS: ${e.locationLabel}`),e.notes&&o.push(`Obs: ${e.notes}`),o.push(``)}return o.join(`
+`).trim()+`
+`}function w(e,t){let n=window.open(``,`_blank`);n&&(n.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/>
+<title>${e}</title>
+<style>
+  body { font-family: "Source Sans 3", "Segoe UI", sans-serif; color: #1c1814; padding: 24px; }
+  h1 { font-size: 20px; margin: 0 0 4px; }
+  p.meta { color: #6b6358; margin: 0 0 20px; font-size: 13px; }
+  table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  th, td { border: 1px solid #ddd4c6; padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #efe8db; font-weight: 600; }
+  .desc { color: #6b6358; font-size: 11px; }
+  @page { margin: 16mm; }
+</style></head><body>${t}</body></html>`),n.document.close(),n.focus(),n.print())}var T=d();function E(){let{data:u,isLoading:d}=s(),[f,m]=(0,y.useState)(a()),[b,E]=(0,y.useState)(a()),O=u?.apontamentos??[],k=(0,y.useMemo)(()=>[...O].filter(e=>e.date>=f&&e.date<=b).sort((e,t)=>e.date===t.date?e.start.localeCompare(t.start):e.date.localeCompare(t.date)),[O,f,b]),A=(0,y.useMemo)(()=>{let e=new Map;for(let n of k){let r=e.get(n.equipmentId)??{name:n.equipmentName,n:0,mins:0};r.n+=1,n.end&&(r.mins+=t(n.start,n.end)),e.set(n.equipmentId,r)}return[...e.values()].sort((e,t)=>t.mins-e.mins)},[k]),j=(0,y.useMemo)(()=>f===b?C(f,k):[...new Set(k.map(e=>e.date))].map(e=>C(e,k.filter(t=>t.date===e))).join(`
+
+`),[f,b,k]);async function M(){await navigator.clipboard.writeText(j),p.success(`Diário copiado`)}async function N(){if(navigator.share){await navigator.share({title:`Diário de apontamento`,text:j});return}await M()}function P(){S(`apontamento_${f}_${b}.csv`,x(k),`text/csv;charset=utf-8`),p.success(`Planilha baixada (abre no Excel)`)}function F(){w(`Relatório de apontamento`,`
+      <h1>Relatório de apontamento</h1>
+      <p class="meta">${n(f)} a ${n(b)} · ${k.length} registros</p>
+      <table>
+        <thead><tr>
+          <th>Horário</th><th>Máquina</th><th>Atividade</th><th>Rua</th><th>Estaca</th><th>PV</th>
+        </tr></thead>
+        <tbody>
+          ${k.map(e=>`<tr>
+            <td>${n(e.date)}<br/>${e.start}${e.end?`–${e.end}`:``}</td>
+            <td>${D(e.equipmentName)}</td>
+            <td>${D(e.activityName)}${e.notes?`<div class="desc">${D(e.notes)}</div>`:``}</td>
+            <td>${D(e.streetName)}</td>
+            <td>${D(e.estaca)}</td>
+            <td>${D(e.pv)}</td>
+          </tr>`).join(``)}
+        </tbody>
+      </table>`)}return d&&!u?(0,T.jsx)(c,{children:(0,T.jsx)(i,{})}):(0,T.jsxs)(c,{children:[(0,T.jsxs)(`header`,{className:`px-4 pb-3 pt-[max(16px,env(safe-area-inset-top))]`,children:[(0,T.jsx)(`h1`,{className:`font-display text-2xl font-semibold`,children:`Relatório`}),(0,T.jsx)(`p`,{className:`text-sm text-muted`,children:`Resumo, Excel e PDF do período — de toda a equipe.`})]}),(0,T.jsxs)(`main`,{className:`flex flex-col gap-4 px-4 pb-6`,children:[(0,T.jsxs)(`div`,{className:`grid grid-cols-2 gap-3`,children:[(0,T.jsxs)(`div`,{children:[(0,T.jsx)(o,{children:`De`}),(0,T.jsx)(l,{type:`date`,value:f,onChange:e=>m(e.target.value)})]}),(0,T.jsxs)(`div`,{children:[(0,T.jsx)(o,{children:`Até`}),(0,T.jsx)(l,{type:`date`,value:b,onChange:e=>E(e.target.value)})]})]}),(0,T.jsxs)(`section`,{className:`rounded-xl border border-border bg-surface p-4 shadow-card`,children:[(0,T.jsxs)(`p`,{className:`text-sm text-muted`,children:[k.length,` apontamentos no período`]}),(0,T.jsxs)(`ul`,{className:`mt-3 flex flex-col gap-2`,children:[A.map(e=>(0,T.jsxs)(`li`,{className:`flex justify-between gap-3 text-sm`,children:[(0,T.jsx)(`span`,{className:`min-w-0 truncate font-medium`,children:e.name}),(0,T.jsxs)(`span`,{className:`shrink-0 tabular-nums text-muted`,children:[e.n,` · `,r(e.mins)]})]},e.name)),A.length===0?(0,T.jsx)(`li`,{className:`text-sm text-muted`,children:`Sem dados neste intervalo.`}):null]})]}),(0,T.jsxs)(`div`,{className:`grid grid-cols-2 gap-2`,children:[(0,T.jsxs)(e,{variant:`outline`,onClick:P,children:[(0,T.jsx)(g,{className:`size-4`}),`Excel`]}),(0,T.jsxs)(e,{variant:`outline`,onClick:F,children:[(0,T.jsx)(_,{className:`size-4`}),`PDF`]}),(0,T.jsxs)(e,{variant:`outline`,onClick:()=>void M(),children:[(0,T.jsx)(h,{className:`size-4`}),`Copiar`]}),(0,T.jsxs)(e,{variant:`outline`,onClick:()=>void N(),children:[(0,T.jsx)(v,{className:`size-4`}),`Enviar`]})]}),(0,T.jsx)(`pre`,{className:`overflow-x-auto whitespace-pre-wrap rounded-xl border border-border bg-surface p-4 font-sans text-sm leading-relaxed text-fg`,children:j||`Nada para exportar.`})]})]})}function D(e){return e.replace(/[&<>]/g,e=>({"&":`&`,"<":`<`,">":`>`})[e]??e)}export{E as component};
